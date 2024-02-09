@@ -8,4 +8,6 @@ import lombok.Setter;
 public class MyResponse {
     private Boolean id_ok;
     private Boolean pwd_ok;
+
+
 }
