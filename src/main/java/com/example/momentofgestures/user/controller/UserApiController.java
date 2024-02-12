@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -50,6 +51,16 @@ public class UserApiController {
         response.setId_ok(true);
         response.setPwd_ok(true);
         return response;
+    }
+
+    @GetMapping("/get-callList")
+    public List<String> getAllPhoneNumbers() {
+        List<UserEntity> allUsers = userRepository.findAll(); //DB에서 모든 사용자 정보 가져옴
+        // allUser에서 phoneNumber만 추출해서 리스트에 저장
+        List<String> phoneNumbers = allUsers.stream()
+                .map(UserEntity::getPhoneNumber) //UserEntity를 phoneNumber로 변환
+                .collect(Collectors.toList());
+        return phoneNumbers;
     }
 
 }
