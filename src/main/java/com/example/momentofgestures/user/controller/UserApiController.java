@@ -28,7 +28,7 @@ public class UserApiController {
         return userRepository.findAll();
     }
 
-    @PostMapping("pp")
+    @PostMapping("/pp")
     public UserEntity create(
             @Valid
             @RequestBody
