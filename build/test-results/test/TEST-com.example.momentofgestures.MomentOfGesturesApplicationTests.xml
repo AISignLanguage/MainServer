@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.momentofgestures.MomentOfGesturesApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-02-12T14:57:11" hostname="BOOK-UBHQ4ANGSD" time="0.478">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.momentofgestures.MomentOfGesturesApplicationTests" time="0.478"/>
+  <system-out><![CDATA[23:57:04.631 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.momentofgestures.MomentOfGesturesApplicationTests]: MomentOfGesturesApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+23:57:04.776 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.momentofgestures.MomentOfGesturesApplication for test class com.example.momentofgestures.MomentOfGesturesApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.2)
+
+2024-02-12T23:57:05.365+09:00  INFO 22228 --- [    Test worker] c.e.m.MomentOfGesturesApplicationTests   : Starting MomentOfGesturesApplicationTests using Java 17.0.8 with PID 22228 (started by PC in C:\Users\PC\Desktop\moment-of-gestures)
+2024-02-12T23:57:05.366+09:00  INFO 22228 --- [    Test worker] c.e.m.MomentOfGesturesApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2024-02-12T23:57:06.588+09:00  INFO 22228 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-12T23:57:06.714+09:00  INFO 22228 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 1 JPA repository interface.
+2024-02-12T23:57:07.468+09:00  INFO 22228 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-12T23:57:07.660+09:00  INFO 22228 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-12T23:57:07.706+09:00  INFO 22228 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-12T23:57:08.032+09:00  INFO 22228 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-12T23:57:08.057+09:00  INFO 22228 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-12T23:57:08.256+09:00  INFO 22228 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5871a482
+2024-02-12T23:57:08.259+09:00  INFO 22228 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-12T23:57:09.288+09:00  INFO 22228 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-12T23:57:09.362+09:00  INFO 22228 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-12T23:57:10.404+09:00  WARN 22228 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-12T23:57:11.416+09:00  INFO 22228 --- [    Test worker] c.e.m.MomentOfGesturesApplicationTests   : Started MomentOfGesturesApplicationTests in 6.414 seconds (process running for 7.832)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
