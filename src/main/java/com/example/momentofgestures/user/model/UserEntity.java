@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 @Builder
 @Entity(name = "user")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,5 +40,4 @@ public class UserEntity {
     private String profileImageUrl;
 
     private LocalDateTime registerdAt;
-
 }

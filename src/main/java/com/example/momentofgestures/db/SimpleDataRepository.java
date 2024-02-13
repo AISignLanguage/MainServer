@@ -67,6 +67,10 @@ abstract public class SimpleDataRepository<T extends Entity, ID extends Long> im
         }
     }
 
+    //modified 수정로직 추가필요
+
+
+
     // find all
     @Override
     public List<T> findAll() {
