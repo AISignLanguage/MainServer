@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import jakarta.validation.constraints.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +37,7 @@ public class UserApiController {
     }
 
     @PostMapping("/send-callList")
-    public List<List<ContactInfo>> sendCallListData(@RequestBody PhoneNumber number) {
+    public PhoneListDTO sendCallListData(@RequestBody PhoneNumber number) {
         // 안드로이드에서 받은 전화번호 리스트
         List<String> phoneNumbers = number.getPhoneNumber();
 
@@ -58,16 +56,19 @@ public class UserApiController {
 
         // 3. DB에 있는 번호에 해당하는 이름과 Uri 가져와서 하나의 리스트로 묶고 리스트로 한번 더 묶음
         // -> 각 사용자의 이름, 번호, Uri 리스트가 담긴 리스트 반환
-        List<List<ContactInfo>> matchingContactsList = new ArrayList<>();
+        PhoneListDTO matchingContactsList = new PhoneListDTO();
+        List<List<PhoneDTO>> phones = new ArrayList<>();
+
         for (String phoneNumber : matchingNumbers) {
-            List<ContactInfo> matchingContacts = new ArrayList<>();
+            List<PhoneDTO> matchingContacts = new ArrayList<>();
             for (UserEntity user : allUsers) {
                 if (user.getPhoneNumber().equals(phoneNumber)) {
-                    matchingContacts.add(new ContactInfo(user.getName(), user.getPhoneNumber(), user.getProfileImageUrl()));
+                    matchingContacts.add(new PhoneDTO(user.getName(), user.getPhoneNumber(), user.getProfileImageUrl()));
                 }
             }
-            matchingContactsList.add(matchingContacts);
+            phones.add(matchingContacts);
         }
+        matchingContactsList.setPhones(phones);
         return matchingContactsList;
     }
 
@@ -75,17 +76,6 @@ public class UserApiController {
     public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
         return userService.create(user);
     }
-
-    @GetMapping("/get-callList")
-    public List<String> getAllPhoneNumbers() {
-        List<UserEntity> allUsers = userRepository.findAll(); //DB에서 모든 사용자 정보 가져옴
-        // allUser에서 phoneNumber만 추출해서 리스트에 저장
-        List<String> phoneNumbers = allUsers.stream()
-                .map(UserEntity::getPhoneNumber) //UserEntity를 phoneNumber로 변환
-                .collect(Collectors.toList());
-        return phoneNumbers;
-    }
-
 }
 
 /*
