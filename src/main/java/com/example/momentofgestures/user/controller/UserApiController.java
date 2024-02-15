@@ -38,7 +38,10 @@ public class UserApiController {
     }
 
     @PostMapping("/send-callList")
-    public CallListResponse sendCallListData(@RequestBody CallList user) {
+    public CallListResponse sendCallListData(@RequestBody PhoneNumber number) {
+        //List<String> phoneNumbers = number.getPhoneNumbers();
+        System.out.println("Received phone numbers: " + number.getPhoneNumber());
+
         CallListResponse response = new CallListResponse();
         response.setUri("hello");
         response.setInstallCheck(true);
