@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 abstract public class SimpleDataRepository<T extends Entity, ID extends Long> implements DataRepository<T, ID> {
     private List<T> dataList = new ArrayList<>();
@@ -53,6 +54,7 @@ abstract public class SimpleDataRepository<T extends Entity, ID extends Long> im
                 .findFirst();
     }
 
+
     // delete
     @Override
     public void delete(ID id) {
@@ -61,13 +63,22 @@ abstract public class SimpleDataRepository<T extends Entity, ID extends Long> im
                     return it.getId().equals(id);
                 })
                 .findFirst();
-
-        if (wDeleteEntity.isPresent()) {
-            dataList.remove(wDeleteEntity.get());
-        }
+        wDeleteEntity.ifPresent(t -> dataList.remove(t));
     }
 
-    //modified 수정로직 추가필요
+    //update
+    public void update(ID id, T data){
+        var wUpdateEntity = dataList.stream()
+                .filter(it -> it.getId().equals(id))
+                .findFirst();
+        if (wUpdateEntity.isPresent()) {
+            int index = dataList.indexOf(wUpdateEntity.get());
+            if (index != -1) {
+                // 새 데이터로 기존 위치를 업데이트
+                dataList.set(index, data);
+            }
+        }
+    }
 
 
 

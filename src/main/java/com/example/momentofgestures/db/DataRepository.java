@@ -14,4 +14,8 @@ public interface DataRepository <T, ID> extends Repository<T, ID> {
     // delete
     void delete(ID id);
 
+
+    //update
+    void update(ID id,T data);
+
 }

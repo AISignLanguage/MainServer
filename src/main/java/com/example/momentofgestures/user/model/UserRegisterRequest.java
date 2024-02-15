@@ -24,6 +24,7 @@ public class UserRegisterRequest {
     @NotBlank
     private String name;
 
+
     @NotNull
     @Past
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -48,6 +49,7 @@ public class UserRegisterRequest {
     @URL
     @NotBlank
     private String profileImageUrl;
+
 
     @AssertTrue(message = "이름과 닉네임은 반드시 존재해야 합니다.")
     public boolean isNameCheck() {

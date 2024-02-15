@@ -23,7 +23,7 @@ public class ValidationExceptionHandler {
         var errorMessageList = e.getFieldErrors()
                 .stream()
                 .map(it -> {
-                    var format = "&s : {&s}은 &s";
+                    var format = "%s: {%s}는 %s";
                     var message = String.format(format, it.getField(),
                             it.getRejectedValue(), it.getDefaultMessage());
                     return message;

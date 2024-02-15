@@ -26,8 +26,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository;
+
 
     public UserEntity create(UserRegisterRequest userRegisterRequest) {
         var entity = UserEntity.builder()
@@ -40,7 +40,6 @@ public class UserService {
                 .profileImageUrl(userRegisterRequest.getProfileImageUrl())
                 .registerdAt(LocalDateTime.now())
                 .build();
-
         return userRepository.save(entity);
     }
 
@@ -60,5 +59,30 @@ public class UserService {
     public Optional<UserEntity> findById(Long id){
         return userRepository.findById(id);
     }
+
+
+    public UserEntity updateUser(Long id, UserRegisterRequest updateRequest) {
+        // 사용자 ID로 기존 사용자 정보를 조회
+        Optional<UserEntity> existingUser = findById(id);
+
+        if (existingUser.isPresent()) {
+            UserEntity userEntity = existingUser.get();
+            userEntity.setName(updateRequest.getName());
+            userEntity.setNickname(updateRequest.getNickname());
+            userEntity.setBirthdate(updateRequest.getBirthdate());
+            userEntity.setEmail(updateRequest.getEmail());
+            userEntity.setPassword(updateRequest.getPassword());
+            userEntity.setPhoneNumber(updateRequest.getPhoneNumber());
+            userEntity.setProfileImageUrl(updateRequest.getProfileImageUrl());
+            // 등록된 날짜는 업데이트하지 않음
+
+            // 업데이트된 사용자 정보를 저장
+            return userRepository.save(userEntity);
+        } else {
+            // 해당 ID의 사용자가 존재하지 않는 경우 예외 처리 또는 다른 로직 구현
+            throw new RuntimeException("User not found with id: " + id);
+        }
+    }
+
 
 }

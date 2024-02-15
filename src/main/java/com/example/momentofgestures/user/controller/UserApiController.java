@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.constraints.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,7 @@ public class UserApiController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/pp")
+    @PostMapping("/create-user")
     public UserEntity create(
             @Valid
             @RequestBody
@@ -49,11 +50,8 @@ public class UserApiController {
     }
 
     @PostMapping("/send-data")
-    public MyResponse sendData(@RequestBody User user) {
-        MyResponse response = new MyResponse();
-        response.setId_ok(true);
-        response.setPwd_ok(true);
-        return response;
+    public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
+        return userService.create(user);
     }
 
     @GetMapping("/get-callList")
