@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -66,6 +67,15 @@ public class UserApiController {
         matchingContactsList.setPhones(phones);
         return matchingContactsList;
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
+        boolean success = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+        LoginResponseDTO response = new LoginResponseDTO(success);
+        return ResponseEntity.ok(response);
+    }
+
+
 
     @PostMapping("/send-data")
     public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
