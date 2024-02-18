@@ -7,9 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CallList {
-    private String uri;
-    private Boolean installCheck;
+public class PhoneListDTO {
+    private List<List<PhoneDTO>> phones;
+
 }
-
-

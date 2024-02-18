@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ContactInfo {
+public class PhoneDTO {
     private String name;
     private String phoneNumber;
     private String uri;
 
-    public ContactInfo() {}
+    public PhoneDTO() {}
 
-    public ContactInfo(String name, String phoneNumber, String uri) {
+    public PhoneDTO(String name, String phoneNumber, String uri) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.uri = uri;
