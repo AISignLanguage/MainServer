@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
@@ -29,15 +31,6 @@ public class UserApiController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/pp")
-    public UserEntity create(
-            @Valid
-            @RequestBody
-            UserRegisterRequest userRegisterRequest
-    ) {
-        return userService.create(userRegisterRequest);
-    }
-
     @PostMapping("/send-callList")
     public PhoneListDTO sendCallListData(@Valid @RequestBody PhoneNumber number) {
         // 안드로이드에서 받은 전화번호 리스트
@@ -48,6 +41,7 @@ public class UserApiController {
         List<String> dbPhoneNumbers = allUsers.stream() //phoneNumber 추출해서 리스트에 저장
                 .map(UserEntity::getPhoneNumber) //UserEntity -> phoneNumber 변환
                 .collect(Collectors.toList());
+        System.out.println("Received phone numb ers: " + dbPhoneNumbers);
 
         // 2. DB에 있는 번호와 안드로이드에서 받은 번호 비교해서 일치하는 번호 리스트 생성
         List<String> matchingNumbers = new ArrayList<>();
