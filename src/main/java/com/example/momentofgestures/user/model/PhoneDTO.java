@@ -8,14 +8,14 @@ import lombok.Setter;
 public class PhoneDTO {
     private String name;
     private String phoneNumber;
-    private String uri;
+    private String profileImageUrl;
 
     public PhoneDTO() {}
 
     public PhoneDTO(String name, String phoneNumber, String uri) {
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.uri = uri;
+        this.profileImageUrl = uri;
     }
 }
 
