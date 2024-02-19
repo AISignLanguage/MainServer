@@ -76,7 +76,6 @@ public class UserApiController {
     }
 
 
-
     @PostMapping("/send-data")
     public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
         return userService.create(user);
