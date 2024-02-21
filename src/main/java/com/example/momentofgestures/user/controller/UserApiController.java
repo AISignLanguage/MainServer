@@ -80,6 +80,9 @@ public class UserApiController {
     public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
         return userService.create(user);
     }
+
+
+
 }
 
 /*
