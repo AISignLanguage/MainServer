@@ -91,4 +91,12 @@ public class UserService {
         return user != null;
     }
 
+    public boolean confirmEmail(String email) {
+        UserEntity user = userRepository.findByEmail(email);
+        return user != null;
+    }
+    public boolean confirmNickname(String nick) {
+        UserEntity user = userRepository.findByNickname(nick);
+        return user != null;
+    }
 }

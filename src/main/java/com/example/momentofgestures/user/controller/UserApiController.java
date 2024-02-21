@@ -68,6 +68,22 @@ public class UserApiController {
         return matchingContactsList;
     }
 
+
+
+    @PostMapping("/confirm-email")
+    public ResponseEntity<ConfirmedDTO> confirmEmail(@RequestBody ConfirmDTO confirmDTO){
+        boolean success = userService.confirmEmail(confirmDTO.getWord());
+        ConfirmedDTO response = new ConfirmedDTO(success);
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/confirm-nick")
+    public ResponseEntity<ConfirmedDTO> confirmNickname(@RequestBody ConfirmDTO confirmDTO){
+        boolean success = userService.confirmNickname(confirmDTO.getWord());
+        ConfirmedDTO response = new ConfirmedDTO(success);
+        return ResponseEntity.ok(response);
+    }
+
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
         boolean success = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
