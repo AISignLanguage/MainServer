@@ -39,8 +39,8 @@ jobs:
         touch ./application.yaml
         echo "${{ secrets.ENV }}" > ./application.yaml
       shell: bash
-
+  
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@417ae3ccd767c252f5661f1ace9f835f9654f2b5
+      uses: gradle/gradle-build-action@v2
       with:
         arguments: clean build -x test
