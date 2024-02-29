@@ -20,7 +20,7 @@ services:
   app:
     image: jijiwon/goyo-spring
     depends_on:
-      - db
+      - d b
     container_name: goyo-spring-server
     ports:
       - "8080:8080"
