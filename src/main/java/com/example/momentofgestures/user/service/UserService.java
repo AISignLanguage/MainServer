@@ -73,7 +73,7 @@ public class UserService {
             userEntity.setPhoneNumber(updateRequest.getPhoneNumber());
             userEntity.setProfileImageUrl(updateRequest.getProfileImageUrl());
             // 등록된 날짜는 업데이트하지 않음
-            // 업데이트된 사용자 정보를 저장 d
+            // 업데이트된 사용자 정보를 저장
             return userRepository.save(userEntity);
         } else {
             // 해당 ID의 사용자가 존재하지 않는 경우 예외 처리 또는 다른 로직 구현
