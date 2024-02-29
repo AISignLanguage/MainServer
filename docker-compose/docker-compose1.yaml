@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: wldnjs@0329
+      MYSQL_DATABASE: goyo-mog-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: wldnjs@0329
+    networks:
+      - bridge
+
+
+  app:
+    depends_on:
+      - db
+    image: goyo-docker
+    ports:
+      - "8080:8080"
+    networks:
+      - bridge
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      MYSQL_DATABASE: goyo-mog-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: wldnjs@0329
+
+networks:
+  bridge:
+    external: true
+
+
