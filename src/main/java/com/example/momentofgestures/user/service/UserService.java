@@ -61,7 +61,7 @@ public class UserService {
         return userRepository.findById(id);
     }
     public UserEntity updateUser(Long id, UserRegisterRequest updateRequest) {
-        // 사용자 ID로 기존 사용자 정보를 조회
+        // 사용자 ID로 기존 사용자 정보를 조회 d
         Optional<UserEntity> existingUser = findById(id);
         if (existingUser.isPresent()) {
             UserEntity userEntity = existingUser.get();
