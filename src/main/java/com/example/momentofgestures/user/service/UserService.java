@@ -74,7 +74,7 @@ public class UserService {
             userEntity.setPassword(updateRequest.getPassword());
             userEntity.setPhoneNumber(updateRequest.getPhoneNumber());
             userEntity.setProfileImageUrl(updateRequest.getProfileImageUrl());
-            // 등록된 날짜는 업데이트하지 않음
+            // 등록된 날짜는 업데이트하지 않음.
             // 업데이트된 사용자 정보를 저장
             return userRepository.save(userEntity);
         } else {
