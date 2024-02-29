@@ -85,7 +85,7 @@ public class UserService {
         }
     }
 
-    // 사용자가 존재하고 비밀번호가 일치하면 로그인 성공
+    // 사용자 이메일 존재하고 비밀번호가 일치하면 로그인 성공
     public boolean login(String email, String password) {
         UserEntity user = userRepository.findByEmailAndPassword(email, password);
         return user != null;
