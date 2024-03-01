@@ -51,7 +51,7 @@ public class UserApiController {
                 matchingNumbers.add(phoneNumber);
 
         // 3. DB에 있는 번호에 해당하는 이름과 Uri 가져와서 하나의 리스트로 묶고 리스트로 한번 더 묶음
-        // -> 각 사용자의 이름, 번호, Uri 리스트가 담긴 리스트 반환........
+        // -> 각 사용자의 이름, 번호, Uri 리스트가 담긴 리스트 반환........  ㅁㅁㅁㅁㅁㅁ
         PhoneListDTO matchingContactsList = new PhoneListDTO();
         List<List<PhoneDTO>> phones = new ArrayList<>();
 
