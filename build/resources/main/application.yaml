@@ -9,10 +9,10 @@ spring:
   datasource:
 
     # 서버에서 실행
-    #url: jdbc:mysql://mysql:3306/goyo-mog-db?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    #url: jdbc:mysql://mysql:3306/goyo_mog_db?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
 
     #로컬에서 실행 (mysql 부분을 외부 IP로 연동 (외부 IP는 그때 그때 바뀜))
-    url: jdbc:mysql://34.22.87.91:3306/goyo-mog-db?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://34.64.212.107:3306/goyo-mog-db?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: wldnjs@0329
