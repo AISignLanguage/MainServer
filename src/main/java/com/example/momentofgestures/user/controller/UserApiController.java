@@ -6,15 +6,11 @@ import com.example.momentofgestures.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-import jakarta.validation.constraints.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +26,28 @@ public class UserApiController {
     @GetMapping("/find-all")
     public List<UserEntity> findAll() {
         return userRepository.findAll();
+    }
+
+    @PostMapping("/find-id")
+    public GetIdDTO sendId(@Valid @RequestBody FindIdDTO findIdDTO) {
+        String name = findIdDTO.getName();
+        String phoneNumber = findIdDTO.getPhone_number();
+        System.out.println("name: " + name + " / phoneNumber: " +phoneNumber);
+
+        GetIdDTO getIdDTO = new GetIdDTO(userService.findId(name, phoneNumber));
+
+        return getIdDTO;
+    }
+
+    @PostMapping("/find-pwd")
+    public FindPwdOk sendPwd(@Valid @RequestBody FindPwdDTO findPwdDTO) {
+        String name = findPwdDTO.getName();
+        String email = findPwdDTO.getEmail();
+        System.out.println("name: " + name + " / email: " +email);
+
+        FindPwdOk findPwdOk = new FindPwdOk(userService.findPwd(name, email));
+
+        return findPwdOk;
     }
 
     @PostMapping("/send-callList")

@@ -87,6 +87,32 @@ public class UserService {
         return user != null;
     }
 
+    public String findId(String name, String phoneNumber) {
+        UserEntity userName = userRepository.findByName(name);
+        UserEntity userPhoneNumber = userRepository.findByPhoneNumber(phoneNumber);
+
+        //이름이 db에 있고 이름에 해당하는 번호, 번호에 해당하는 이름이 일치하면
+        if (userName != null && userPhoneNumber != null) {
+            if(userName.getId().equals(userPhoneNumber.getId())) {
+                System.out.println(userPhoneNumber.getEmail());
+                return userPhoneNumber.getEmail();
+            }
+        }
+        return null;
+    }
+
+    public Boolean findPwd(String name, String email) {
+        UserEntity userName = userRepository.findByName(name);
+        UserEntity userEmail = userRepository.findByEmail(email);
+
+        if (userName != null && userEmail != null) {
+            if (userName.getId().equals(userEmail.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean confirmEmail(String email) {
         UserEntity user = userRepository.findByEmail(email);
         return user != null;
