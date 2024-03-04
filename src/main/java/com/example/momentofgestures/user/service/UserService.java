@@ -87,6 +87,33 @@ public class UserService {
         return user != null;
     }
 
+    //이메일에 해당하는 비밀번호 찾기
+    public String getPasswordByEmail(String email) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            return user.getPassword();
+        } else {
+            return null;
+        }
+    }
+
+    //비밀번호 변경
+    public boolean changePasswordDatabase(String email, String newPassword) {
+        if (newPassword == null || newPassword.isEmpty()) {
+            return false;
+        }
+
+        UserEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            return false;
+        }
+
+        user.setPassword(newPassword);
+        userRepository.save(user);
+        return true;
+    }
+
+
     public String findId(String name, String phoneNumber) {
         UserEntity userName = userRepository.findByName(name);
         UserEntity userPhoneNumber = userRepository.findByPhoneNumber(phoneNumber);

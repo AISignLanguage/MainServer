@@ -6,6 +6,7 @@ import com.example.momentofgestures.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,6 +109,40 @@ public class UserApiController {
         LoginResponseDTO response = new LoginResponseDTO(success);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/checkPassword")
+    public ResponseEntity<CheckPasswordResponseDTO> checkPassword(@RequestBody CheckPasswordRequestDTO requestDTO) {
+        String email = requestDTO.getEmail();
+        String password = userService.getPasswordByEmail(email);
+
+        if (password != null) {
+            // 이메일에 해당하는 비밀번호가 데이터베이스에서 조회되었을 경우
+            CheckPasswordResponseDTO responseDTO = new CheckPasswordResponseDTO(password);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        } else {
+            // 이메일에 해당하는 사용자가 없거나 비밀번호가 없는 경우
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<ChangePasswordResponseDTO> changePassword(@RequestBody ChangePasswordRequestDTO requestDTO) {
+        String email = requestDTO.getEmail();
+        String newPassword = requestDTO.getNewPassword();
+
+        boolean success = userService.changePasswordDatabase(email, newPassword);
+
+        if (success) {
+            ChangePasswordResponseDTO responseDTO = new ChangePasswordResponseDTO(true);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        } else {
+            ChangePasswordResponseDTO responseDTO = new ChangePasswordResponseDTO(false);
+            return new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
     @PostMapping("/send-data")
