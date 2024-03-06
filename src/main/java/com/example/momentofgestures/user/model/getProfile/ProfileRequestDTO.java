@@ -1,4 +1,4 @@
-package com.example.momentofgestures.user.model;
+package com.example.momentofgestures.user.model.getProfile;
 
 import lombok.Getter;
 import lombok.Setter;

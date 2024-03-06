@@ -1,4 +1,4 @@
-package com.example.momentofgestures.user.model;
+package com.example.momentofgestures.user.model.call;
 
 import lombok.Getter;
 import lombok.Setter;

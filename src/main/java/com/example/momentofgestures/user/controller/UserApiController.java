@@ -2,6 +2,17 @@ package com.example.momentofgestures.user.controller;
 
 import com.example.momentofgestures.user.db.UserRepository;
 import com.example.momentofgestures.user.model.*;
+import com.example.momentofgestures.user.model.call.PhoneDTO;
+import com.example.momentofgestures.user.model.call.PhoneListDTO;
+import com.example.momentofgestures.user.model.call.PhoneNumber;
+import com.example.momentofgestures.user.model.changeNickname.ChangeNickNameDTO;
+import com.example.momentofgestures.user.model.changeNickname.ChangeNickNameResultDTO;
+import com.example.momentofgestures.user.model.find.FindIdDTO;
+import com.example.momentofgestures.user.model.find.FindPwdDTO;
+import com.example.momentofgestures.user.model.find.FindPwdOk;
+import com.example.momentofgestures.user.model.find.GetIdDTO;
+import com.example.momentofgestures.user.model.getProfile.GetProfileDTO;
+import com.example.momentofgestures.user.model.getProfile.ProfileRequestDTO;
 import com.example.momentofgestures.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +62,7 @@ public class UserApiController {
         return ResponseEntity.ok(findPwdOk);
     }
 
+    // 클라이언트에서 보낸 번호에 해당하는 사용자 정보 반환
     @PostMapping("/send-callList")
     public ResponseEntity<PhoneListDTO> sendCallListData(@Valid @RequestBody PhoneNumber number) {
         // 안드로이드에서 받은 전화번호 리스트
@@ -110,6 +122,7 @@ public class UserApiController {
         return ResponseEntity.ok(response);
     }
 
+    // 비밀번호 찾기 (조회)
     @PostMapping("/checkPassword")
     public ResponseEntity<CheckPasswordResponseDTO> checkPassword(@RequestBody CheckPasswordRequestDTO requestDTO) {
         String email = requestDTO.getEmail();
@@ -149,10 +162,10 @@ public class UserApiController {
     }
 
 
+    // 사용자 정보 요청 - 응답
     @PostMapping("/requestProfile")
     public ResponseEntity<GetProfileDTO> requestProfile(@Valid @RequestBody ProfileRequestDTO profileRequestDTO)
     {
-        System.out.println("profileRequestDTO : " + profileRequestDTO.getEmail());
        Long id = userService.getIdByEmail(profileRequestDTO.getEmail()); //받은 이메일에 해당하는 DB의 ID 검색
        List<UserEntity> allUsers = userRepository.findAll();
 
@@ -166,6 +179,25 @@ public class UserApiController {
            }
        }
         return ResponseEntity.ok(getProfileDTO);
+    }
+
+    @PostMapping("/changeNickName")
+    public ResponseEntity<ChangeNickNameResultDTO> changeNickName(@Valid @RequestBody ChangeNickNameDTO changeNickNameDTO) {
+
+        ChangeNickNameResultDTO success = null;
+        String nickName = changeNickNameDTO.getNickname();
+//        List<UserEntity> allUsers = userRepository.findAll();
+//
+//        for(UserEntity user : allUsers) {
+//            if(user.getNickname().equals(nickName)) {
+//                success = new ChangeNickNameResultDTO(false);
+//                return ResponseEntity.ok(success);
+//            }
+//        }
+//
+//        success = new ChangeNickNameResultDTO(true);
+        return ResponseEntity.ok(success);
+
     }
 
 
