@@ -81,6 +81,12 @@ public class UserService {
         }
     }
 
+    // email로 id 반환
+    public Long getIdByEmail(String email) {
+        UserEntity userEmail = userRepository.findByEmail(email);
+        return userEmail.getId();
+    }
+
     // 사용자 이메일 존재 확인하고 비밀번호가 일치하면 로그인 성공
     public boolean login(String email, String password) {
         UserEntity user = userRepository.findByEmailAndPassword(email, password);
@@ -114,6 +120,7 @@ public class UserService {
     }
 
 
+    // 아이디 찾기
     public String findId(String name, String phoneNumber) {
         UserEntity userName = userRepository.findByName(name);
         UserEntity userPhoneNumber = userRepository.findByPhoneNumber(phoneNumber);
@@ -128,6 +135,7 @@ public class UserService {
         return null;
     }
 
+    // 비밀번호 찾기
     public Boolean findPwd(String name, String email) {
         UserEntity userName = userRepository.findByName(name);
         UserEntity userEmail = userRepository.findByEmail(email);

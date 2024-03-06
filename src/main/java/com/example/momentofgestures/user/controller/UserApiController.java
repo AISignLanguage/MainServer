@@ -30,29 +30,29 @@ public class UserApiController {
     }
 
     @PostMapping("/find-id")
-    public GetIdDTO sendId(@Valid @RequestBody FindIdDTO findIdDTO) {
+    public ResponseEntity<GetIdDTO> sendId(@Valid @RequestBody FindIdDTO findIdDTO) {
         String name = findIdDTO.getName();
         String phoneNumber = findIdDTO.getPhone_number();
         System.out.println("name: " + name + " / phoneNumber: " +phoneNumber);
 
         GetIdDTO getIdDTO = new GetIdDTO(userService.findId(name, phoneNumber));
 
-        return getIdDTO;
+        return ResponseEntity.ok(getIdDTO);
     }
 
     @PostMapping("/find-pwd")
-    public FindPwdOk sendPwd(@Valid @RequestBody FindPwdDTO findPwdDTO) {
+    public ResponseEntity<FindPwdOk> sendPwd(@Valid @RequestBody FindPwdDTO findPwdDTO) {
         String name = findPwdDTO.getName();
         String email = findPwdDTO.getEmail();
         System.out.println("name: " + name + " / email: " +email);
 
         FindPwdOk findPwdOk = new FindPwdOk(userService.findPwd(name, email));
 
-        return findPwdOk;
+        return ResponseEntity.ok(findPwdOk);
     }
 
     @PostMapping("/send-callList")
-    public PhoneListDTO sendCallListData(@Valid @RequestBody PhoneNumber number) {
+    public ResponseEntity<PhoneListDTO> sendCallListData(@Valid @RequestBody PhoneNumber number) {
         // 안드로이드에서 받은 전화번호 리스트
         List<String> phoneNumbers = number.getPhoneNumber();
 
@@ -84,7 +84,7 @@ public class UserApiController {
             phones.add(matchingContacts);
         }
         matchingContactsList.setPhones(phones);
-        return matchingContactsList;
+        return ResponseEntity.ok(matchingContactsList);
     }
 
 
@@ -143,14 +143,30 @@ public class UserApiController {
         }
     }
 
-
-
     @PostMapping("/send-data")
     public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
         return userService.create(user);
     }
 
 
+    @PostMapping("/requestProfile")
+    public ResponseEntity<GetProfileDTO> requestProfile(@Valid @RequestBody ProfileRequestDTO profileRequestDTO)
+    {
+        System.out.println("profileRequestDTO : " + profileRequestDTO.getEmail());
+       Long id = userService.getIdByEmail(profileRequestDTO.getEmail()); //받은 이메일에 해당하는 DB의 ID 검색
+       List<UserEntity> allUsers = userRepository.findAll();
+
+        GetProfileDTO getProfileDTO = null;
+
+       for(UserEntity user : allUsers) {
+           if (user.getId().equals(id)) {
+                getProfileDTO = new GetProfileDTO(user.getProfileImageUrl(), user.getName(), user.getNickname(),
+                       user.getPassword(), user.getBirthdate().toString(), user.getPhoneNumber());
+                break;
+           }
+       }
+        return ResponseEntity.ok(getProfileDTO);
+    }
 
 
 
