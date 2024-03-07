@@ -119,6 +119,17 @@ public class UserService {
         return true;
     }
 
+    //유저 정보 삭제
+    public boolean deleteUserByEmail(String email) {
+        UserEntity user = userRepository.findByEmail(email);
+
+        if (user != null) {
+            userRepository.delete(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // 아이디 찾기
     public String findId(String name, String phoneNumber) {
