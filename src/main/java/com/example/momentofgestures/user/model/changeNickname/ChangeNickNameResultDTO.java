@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChangeNickNameResultDTO {
-    private Boolean success;
+    private int result;
 
-    public ChangeNickNameResultDTO(Boolean success) {
-        this.success = success;
+    public ChangeNickNameResultDTO(int result) {
+        this.result = result;
     }
 }

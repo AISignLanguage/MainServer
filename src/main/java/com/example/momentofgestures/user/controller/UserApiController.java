@@ -184,19 +184,32 @@ public class UserApiController {
     @PostMapping("/changeNickName")
     public ResponseEntity<ChangeNickNameResultDTO> changeNickName(@Valid @RequestBody ChangeNickNameDTO changeNickNameDTO) {
 
-        ChangeNickNameResultDTO success = null;
+        ChangeNickNameResultDTO result = null;
         String nickName = changeNickNameDTO.getNickname();
-//        List<UserEntity> allUsers = userRepository.findAll();
-//
-//        for(UserEntity user : allUsers) {
-//            if(user.getNickname().equals(nickName)) {
-//                success = new ChangeNickNameResultDTO(false);
-//                return ResponseEntity.ok(success);
-//            }
-//        }
-//
-//        success = new ChangeNickNameResultDTO(true);
-        return ResponseEntity.ok(success);
+        List<UserEntity> allUsers = userRepository.findAll();
+
+        if (nickName.isBlank()) {
+            result = new ChangeNickNameResultDTO(1);
+            return ResponseEntity.ok(result);
+        }
+
+        // 1. DB에서 전체 닉네임에서 현재 닉네임이 존재 여부 확인
+        for(UserEntity user : allUsers) {
+            // 2. 닉네임이 존재 하는 경우 -> 이미 존재하는 닉네임입니다.
+            if (user.getNickname().equals(nickName)) {
+                result = new ChangeNickNameResultDTO(2);
+                return ResponseEntity.ok(result);
+            }
+            // 3. 닉네임이 존재하지 않는 경우 -> 닉네임 변경 (id 구해서 해당 항목 닉네임 업데이트)
+            else {
+                userService.changeNickNameDatabase(nickName);
+                result = new ChangeNickNameResultDTO(3);
+                return ResponseEntity.ok(result);
+            }
+        }
+
+        //result = new ChangeNickNameResultDTO(1);
+        return ResponseEntity.ok(result);
 
     }
 

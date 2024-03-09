@@ -103,6 +103,14 @@ public class UserService {
         }
     }
 
+    // 닉네임 변경
+    public void changeNickNameDatabase(String nickname) {
+        UserEntity user = userRepository.findByNickname(nickname);
+
+        user.setNickname(nickname);
+        userRepository.save(user);
+    }
+
     //비밀번호 변경
     public boolean changePasswordDatabase(String email, String newPassword) {
         if (newPassword == null || newPassword.isEmpty()) {
