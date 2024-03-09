@@ -156,6 +156,20 @@ public class UserApiController {
         }
     }
 
+    //유저 정보 삭제
+    @PostMapping("/deleteUser")
+    public ResponseEntity<DeleteUserResponseDTO> deleteUser(@RequestBody DeleteUserRequestDTO requestDTO) {
+        String email = requestDTO.getEmail();
+
+        boolean success = userService.deleteUserByEmail(email);
+
+        if (success) {
+            return ResponseEntity.ok(new DeleteUserResponseDTO(true));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DeleteUserResponseDTO(false));
+        }
+    }
+
     @PostMapping("/send-data")
     public UserEntity sendData(@Valid @RequestBody UserRegisterRequest user) {
         return userService.create(user);
