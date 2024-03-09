@@ -104,10 +104,10 @@ public class UserService {
     }
 
     // 닉네임 변경
-    public void changeNickNameDatabase(String nickname) {
-        UserEntity user = userRepository.findByNickname(nickname);
+    public void changeNickNameDatabase(String originalNickname, String changeNickname) {
+        UserEntity user = userRepository.findByNickname(originalNickname);
 
-        user.setNickname(nickname);
+        user.setNickname(changeNickname);
         userRepository.save(user);
     }
 

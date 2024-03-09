@@ -40,17 +40,19 @@ public class UserApiController {
         return userRepository.findAll();
     }
 
+    // 아이디 찾기
     @PostMapping("/find-id")
     public ResponseEntity<GetIdDTO> sendId(@Valid @RequestBody FindIdDTO findIdDTO) {
         String name = findIdDTO.getName();
         String phoneNumber = findIdDTO.getPhone_number();
-        System.out.println("name: " + name + " / phoneNumber: " +phoneNumber);
+        System.out.println("name: " + name + ", phoneNumber: " +phoneNumber);
 
         GetIdDTO getIdDTO = new GetIdDTO(userService.findId(name, phoneNumber));
 
         return ResponseEntity.ok(getIdDTO);
     }
 
+    // 비밀번호 찾기
     @PostMapping("/find-pwd")
     public ResponseEntity<FindPwdOk> sendPwd(@Valid @RequestBody FindPwdDTO findPwdDTO) {
         String name = findPwdDTO.getName();
@@ -195,39 +197,39 @@ public class UserApiController {
         return ResponseEntity.ok(getProfileDTO);
     }
 
+    // 닉네임 변경
     @PostMapping("/changeNickName")
-    public ResponseEntity<ChangeNickNameResultDTO> changeNickName(@Valid @RequestBody ChangeNickNameDTO changeNickNameDTO) {
+    public ResponseEntity<ChangeNickNameResultDTO> changeNickName
+            (@Valid @RequestBody ChangeNickNameDTO changeNickNameDTO) {
 
         ChangeNickNameResultDTO result = null;
-        String nickName = changeNickNameDTO.getNickname();
+        String originalNickname = changeNickNameDTO.getOriginalNickname(); // 원본 닉네임
+        String nickName = changeNickNameDTO.getNickname(); // 바꿀 닉네임
         List<UserEntity> allUsers = userRepository.findAll();
+        System.out.println("origin: " + originalNickname + " nickname: " + nickName);
 
+        // 바꿀 닉네임이 null인 경우
         if (nickName.isBlank()) {
-            result = new ChangeNickNameResultDTO(1);
+            result = new ChangeNickNameResultDTO(1); // 바꿀 닉네임이 없습니다..
             return ResponseEntity.ok(result);
         }
 
-        // 1. DB에서 전체 닉네임에서 현재 닉네임이 존재 여부 확인
+        // 1. DB 전체 닉네임 중 바꿀 닉네임이 존재 여부 확인
         for(UserEntity user : allUsers) {
             // 2. 닉네임이 존재 하는 경우 -> 이미 존재하는 닉네임입니다.
             if (user.getNickname().equals(nickName)) {
-                result = new ChangeNickNameResultDTO(2);
-                return ResponseEntity.ok(result);
+                result = new ChangeNickNameResultDTO(2); // 이미 존재하는 닉네임..
+                break;
             }
-            // 3. 닉네임이 존재하지 않는 경우 -> 닉네임 변경 (id 구해서 해당 항목 닉네임 업데이트)
+            // 3. 닉네임이 존재하지 않는 경우 -> 원본 닉네임 변경 (id 이용 -> 해당 항목 닉네임 업데이트)
             else {
-                userService.changeNickNameDatabase(nickName);
+                userService.changeNickNameDatabase(originalNickname, nickName);
                 result = new ChangeNickNameResultDTO(3);
-                return ResponseEntity.ok(result);
+                break;
             }
         }
-
-        //result = new ChangeNickNameResultDTO(1);
         return ResponseEntity.ok(result);
-
     }
-
-
 
 }
 
